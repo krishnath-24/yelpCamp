@@ -29,9 +29,8 @@ app.get('/',function(req,res){
 });
 
 //add the show campgrounds route
-app.get('/campgrounds',(req,res)=>{     
-    
-
+app.get('/campgrounds',(req,res)=>{   
+    console.log(campgrounds);  
     res.render("campgrounds",{campgrounds: campgrounds});
 
 });
