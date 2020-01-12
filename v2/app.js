@@ -18,29 +18,8 @@ var campgroundSchema=mongoose.Schema({
     description:String
 });
 
-//create the schema using the model
-var Campground = mongoose.model("campground",campgroundSchema);
-
-
-// Campground.create({
-//     name: "The Epic one",
-//     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-ljub75YN7O53EYDsswxMV8x1sNidQpX76xoMdCPvXxUkohMU&s",
-//     description:"This is a serene campground amidst the hills that take your breath away"
-
-// },function(err,campground){
-
-//     if(err){
-//         console.log(err);
-//     } else{
-//         console.log("campground saved : "+campground);
-//     }
-// });
-
-
-
-
-
-
+// create the model
+const Campground= mongoose.model("campground",campgroundSchema);
 
 
 //set up the home route
