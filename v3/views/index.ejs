@@ -23,7 +23,7 @@
                         </div>
                         <p>
                             <p>
-                                <%= campground.description %>
+                                <%= campground.description.substring(0,100) %>
                             </p>
                             <a href="/campgrounds/<%= campground._id %>" class="btn btn-primary">More Info</a>
 
