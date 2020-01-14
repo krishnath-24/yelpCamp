@@ -2,8 +2,8 @@ const express=require('express');
 const app=express();
 const bodyParser =require('body-parser');
 const mongoose=require('mongoose');
-const Campground=require('./models/campground');
-const Comment =require('../v4/models/comment');
+const Campground=require('../v5/models/campground');
+const Comment =require('../v5/models/comment');
 
 const seedDB=require('./models/seed');
 
@@ -16,6 +16,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 
 // seedDB();
+
+app.use(express.static(__dirname+"/public"));
 
 
 //set up the home route
@@ -109,11 +111,15 @@ app.get('/campgrounds/:id/comments/new',function(req,res){
 app.post('/campgrounds/:id/comments',function(req,res){
 
     Campground.findById(req.params.id,function(err,foundCampground){
+
         var comment =req.body.comment;
+
         Comment.create(comment,function(err,comment){
+
             foundCampground.comments.push(comment);
             foundCampground.save();
             res.redirect('/campgrounds/'+foundCampground._id);
+
         });
     });
 });
