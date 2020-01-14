@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 //set up the view engine as ejs
 app.set("view engine","ejs");
 
-// seedDB();
+seedDB();
 
 
 //set up the home route
