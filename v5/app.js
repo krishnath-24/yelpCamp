@@ -35,6 +35,11 @@ passport.deserializeUser(User.deserializeUser());
 
 app.use(express.static(__dirname+"/public"));
 
+// make the logged in user available to every route
+app.use(function(req,res,next){
+    res.locals.user=req.user;
+    next(); 
+});
 
 //set up the home route
 app.get('/',function(req,res){
@@ -52,7 +57,7 @@ app.get('/campgrounds',(req,res)=>{
         if(err) console.log(err);
 
         else{
-            res.render("campgrounds/index",{campgrounds: allCampgrounds});
+            res.render("campgrounds/index",{campgrounds: allCampgrounds,user:req.user});
 
         }
     });
@@ -70,12 +75,9 @@ app.post('/campgrounds',function(req,res){
 
         if(err) console.log(err);
         else{
-
-            // console.log("camp ground added successfully..");
-            // console.log(newCampground);
+            res.redirect("/campgrounds");
         }
     })
-    res.redirect("/campgrounds");
 });
 
 
@@ -110,7 +112,7 @@ app.get('/campgrounds/:id',function(req, res){
 
 //Comment Routes
 
-app.get('/campgrounds/:id/comments/new',function(req,res){
+app.get('/campgrounds/:id/comments/new',isLoggedIn,function(req,res){
 
     Campground.findById(req.params.id,function(err,campground){
 
@@ -124,7 +126,7 @@ app.get('/campgrounds/:id/comments/new',function(req,res){
 
 
 // Comment post route
-app.post('/campgrounds/:id/comments',function(req,res){
+app.post('/campgrounds/:id/comments',isLoggedIn,function(req,res){
 
     Campground.findById(req.params.id,function(err,foundCampground){
 
@@ -164,6 +166,42 @@ app.post('/register',function(req,res){
         }
     });
 });
+
+
+// show login form
+
+app.get('/login',function(req,res){
+
+    res.render('login');
+});
+
+
+
+// add the login route and authenticate the user and login
+app.post('/login',passport.authenticate("local",{
+    successRedirect :"/campgrounds",
+    failureRedirect :"/login"
+}),function(req,res){
+
+});
+
+
+// set up the logout route
+app.get('/logout',function(req,res){
+
+    req.logout();
+    res.redirect('/login');
+});
+
+
+function isLoggedIn(req,res,next){
+
+    if(req.isAuthenticated()){
+        next();
+    } else{
+        res.redirect('/campgrounds'); 
+    }
+}
 
 
 //set up the server
