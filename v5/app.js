@@ -65,7 +65,7 @@ app.get('/campgrounds',(req,res)=>{
 
 
 //setup the add campgrounds route
-app.post('/campgrounds',function(req,res){
+app.post('/campgrounds',isLoggedIn,function(req,res){
     var name=req.body.name;
     var image=req.body.image;
     var description=req.body.description;
