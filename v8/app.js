@@ -8,18 +8,17 @@ const express               =   require('express');
       LocalStrategy         =   require('passport-local'),
       passportLocalMongoose =   require('passport-local-mongoose');
       User                  =   require('./models/user'),
-      seedDB                =   require('./models/seed');
+      seedDB                =   require('./models/seed'),
+      methodOverride        =   require('method-override');
 
 var commentRoutes = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
     authRoutes = require('./routes/index');
-      
-
 
 
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp",{useUnifiedTopology: true,useNewUrlParser: true});
-
+mongoose.set('useFindAndModify', false);
 //tell app to use body-parser
 app.use(bodyParser.urlencoded({extended: true}));
 
@@ -27,6 +26,9 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.set("view engine","ejs");
 
 // seedDB();
+
+// use method override package
+app.use(methodOverride("_method"));
 
 
 
