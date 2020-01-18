@@ -18,3 +18,7 @@ this includes the rafactoring of the codebase and seperating out the different r
 
 # version 8 is complete
 The app now has user associations with campgrounds as well as comments
+
+* added user authorization
+* user can't edit the campgrounds that he/she did not created
+

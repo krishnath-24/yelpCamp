@@ -55,7 +55,7 @@ app.use(function(req,res,next){
 });
 
 // use all the different router
-
+// the first argument appends the route specified to the route
 app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 app.use("/",authRoutes);
