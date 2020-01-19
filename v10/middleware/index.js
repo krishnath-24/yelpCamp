@@ -1,14 +1,20 @@
+var Comment     = require('../models/campground'),
+    Campground  = require('../models/campground');
+
+
+
 // All the middlewares go here
 
 var middlewares = {};
 
-middlewares.checkCamgroundOwnership = function(req,res,next){
+middlewares.checkCampgroundOwnership = function(req,res,next){
 
     if(req.isAuthenticated()){
 
         Campground.findById(req.params.id,function(err,foundCampground){
 
             if(err){
+                console.log(foundCampground.author +" "+req.user.username);
                 console.log(err);
                 res.redirect("back");   
             } else{
@@ -18,6 +24,7 @@ middlewares.checkCamgroundOwnership = function(req,res,next){
                     next();
 
                 } else{
+                    console.log(foundCampground.author +" "+req.user.username);
                     res.redirect("back");
                 }
             }
@@ -31,7 +38,7 @@ middlewares.checkCamgroundOwnership = function(req,res,next){
 middlewares.checkCommentOwnership = function(req,res,next){
     if(req.isAuthenticated()){
 
-        Comment.findById(req.params.Comment_id,function(err,foundComment){
+        Comment.findById(req.params.comment_id,function(err,foundComment){
 
             if(err){
                 console.log(err);
@@ -64,3 +71,5 @@ middlewares.isLoggedIn = function(req,res,next){
         res.redirect("back");
     }
 }
+
+module.exports = middlewares;
