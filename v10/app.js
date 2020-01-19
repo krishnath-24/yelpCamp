@@ -8,8 +8,8 @@ const express               =   require('express');
       LocalStrategy         =   require('passport-local'),
       passportLocalMongoose =   require('passport-local-mongoose');
       User                  =   require('./models/user'),
-      seedDB                =   require('./models/seed'),
-      methodOverride        =   require('method-override');
+      methodOverride        =   require('method-override'),
+      flash                 =   require('connect-flash');
 
 var commentRoutes = require('./routes/comments'),
     campgroundRoutes = require('./routes/campgrounds'),
@@ -19,13 +19,16 @@ var commentRoutes = require('./routes/comments'),
 
 mongoose.connect("mongodb://localhost:27017/yelp_camp",{useUnifiedTopology: true,useNewUrlParser: true});
 mongoose.set('useFindAndModify', false);
+
+//use connect-flash
+app.use(flash());
+
+
 //tell app to use body-parser
 app.use(bodyParser.urlencoded({extended: true}));
 
 //set up the view engine as ejs
 app.set("view engine","ejs");
-
-// seedDB();
 
 // use method override package
 app.use(methodOverride("_method"));
@@ -51,6 +54,8 @@ app.use(express.static(__dirname+"/public"));
 // make the logged in user available to every route
 app.use(function(req,res,next){
     res.locals.user=req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next(); 
 });
 

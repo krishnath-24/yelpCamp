@@ -1,4 +1,4 @@
-var Comment     = require('../models/campground'),
+var Comment     = require('../models/comment'),
     Campground  = require('../models/campground');
 
 
@@ -13,9 +13,9 @@ middlewares.checkCampgroundOwnership = function(req,res,next){
 
         Campground.findById(req.params.id,function(err,foundCampground){
 
-            if(err){
-                console.log(foundCampground.author +" "+req.user.username);
+            if(err || !foundCampground){
                 console.log(err);
+                req.flash("error","Campground Not Found ");
                 res.redirect("back");   
             } else{
 
@@ -25,12 +25,14 @@ middlewares.checkCampgroundOwnership = function(req,res,next){
 
                 } else{
                     console.log(foundCampground.author +" "+req.user.username);
+                    req.flash("error","Permission denied!");
                     res.redirect("back");
                 }
             }
         });
 
     } else{
+        req.flash("error","You need to be logged in to do that");
         res.redirect("back");
     }
 }
@@ -38,24 +40,38 @@ middlewares.checkCampgroundOwnership = function(req,res,next){
 middlewares.checkCommentOwnership = function(req,res,next){
     if(req.isAuthenticated()){
 
-        Comment.findById(req.params.comment_id,function(err,foundComment){
+        Campground.findById(req.params.id,function(err,foundCampground){
 
-            if(err){
-                console.log(err);
-                res.redirect("back");   
+            if(err || !foundCampground){
+
+                req.flash("error","Campground Not Found");
+                res.redirect("back");
             } else{
+                
+                Comment.findById(req.params.comment_id,function(err,foundComment){
 
-                if(foundComment.author.id.equals(req.user._id)){
+                    if(err || !foundComment){
+                        req.flash("error","Comment not found");
+                        console.log(err);
+                        res.redirect("back");   
+                    } else{
 
-                    next();
+                        if(foundComment.author.id.equals(req.user._id)){
+                            next();
 
-                } else{
-                    res.redirect("back");
-                }
+                        } else{
+                            req.flash("error","Permission Denied!");
+                            res.redirect("back");
+                        }
+                    }
+                });
+
             }
         });
 
+
     } else{
+        req.flash("error","You need to be logged in to do that.");
         res.redirect("back");
     }
 }
@@ -68,7 +84,8 @@ middlewares.isLoggedIn = function(req,res,next){
 
     } else{
 
-        res.redirect("back");
+        req.flash("error","You need to be logged in to do that!");
+        res.redirect("/login");
     }
 }
 

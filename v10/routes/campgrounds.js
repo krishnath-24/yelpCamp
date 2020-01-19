@@ -52,9 +52,10 @@ router.get('/:id',function(req, res){
     //find all campgroud with provided id
     Campground.findById(req.params.id).populate("comments").exec(function(err, foundCampground){
 
-        if(err){
+        if(err || !foundCampground){
             console.log("There was an error in finding the campground "+err);
-       
+            req.flash("error","Campground Not Found");
+            res.redirect("/campgrounds");
         } else{
 
             //render show page of those campgrounds
