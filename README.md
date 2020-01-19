@@ -1,6 +1,7 @@
 # yelpCamp
 Web Development Boot camp Project
 
+* A beautifully designed web app with User authentication using passport, authorization using middlewares, with express-sessions, ejs templates etc, in which user can add, update and view campgrounds and their comments, ratings, reviews and select the campground of their choice.
 
 <!-- Updated the current version to version two -->
 
