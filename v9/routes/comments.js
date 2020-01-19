@@ -72,6 +72,24 @@ router.put('/:comment_id',function(req,res){
     });
 }); 
 
+// Comment destroy route
+router.delete('/:comment_id',function(req,res){
+    
+    //find the comment and remove it
+    Comment.findByIdAndRemove(req.params.comment_id,function(err,deletedComment){
+        if(err){
+            console.log(err);
+            res.redirect("back");
+        } 
+
+        else{
+
+            console.log(deletedComment);
+            res.redirect("back");
+        }
+    })
+});
+
 
 
 // middleware
