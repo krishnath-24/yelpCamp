@@ -20,6 +20,10 @@ this includes the rafactoring of the codebase and seperating out the different r
 # version 8 is complete
 The app now has user associations with campgrounds as well as comments
 
+# version 9
 * added user authorization
 * user can't edit the campgrounds that he/she did not created
 
+
+# started with version 10
+* refactored the middleware
