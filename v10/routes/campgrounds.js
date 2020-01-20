@@ -24,8 +24,9 @@ router.post('/',middleware.isLoggedIn,function(req,res){
 
     var name=req.body.name;
     var image=req.body.image;
+    var price= req.body.price;
     var description=req.body.description;
-    var newCampground={name : name, image : image,description: description,
+    var newCampground={name : name, image : image,price : price,description: description,
         author : {id : req.user._id, username : req.user.username}};
     // create a new campground and save to db
     console.log(newCampground);
