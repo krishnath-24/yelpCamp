@@ -4,18 +4,40 @@ const router = express.Router();
 const Campground = require('../models/campground');
 const middleware = require('../middleware');    
 //add the show campgrounds route
-router.get('/',(req,res)=>{   
+router.get('/',(req,res)=>{
+    
+    if(req.query.search){
 
-    //get all campgorunds from the db
-    Campground.find({},function(err,allCampgrounds){
+        var noMatch;
+        const regex = new RegExp(escapeRegex(req.query.search),'gi');
 
-        if(err) console.log(err);
+        Campground.find({name : regex},function(err,campgrounds){
 
-        else{
-            res.render("campgrounds/index",{campgrounds: allCampgrounds,currentUser : req.user,page : 'campgrounds'});
+            if(err){
+                console.log(err);
+                res.redirect('/campgrounds');
+            } else{
 
-        }
-    });
+
+                if(campgrounds.length<1){
+                    noMatch  = "No campground found, Please try again";
+                }
+                res.render("campgrounds/index",{campgrounds: campgrounds,page : 'campgrounds',noMatch : noMatch});
+            }
+        });
+
+    } else{
+
+        //get all campgorunds from the db
+        Campground.find({},function(err,allCampgrounds){
+            if(err) console.log(err);
+            else{
+                res.render("campgrounds/index",{campgrounds: allCampgrounds,page : 'campgrounds',noMatch: noMatch});
+            }
+        });
+    }
+
+    
 });     
 
 
@@ -110,5 +132,10 @@ router.delete('/:id',middleware.checkCampgroundOwnership,function(req,res){
 });
 
 
+
+// utility function to perform fuzzy search
+function escapeRegex(text){
+    return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
+}
 
 module.exports = router;
