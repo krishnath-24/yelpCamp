@@ -39,6 +39,7 @@ app.use(methodOverride("_method"));
 app.use(require('express-session')({
     secret:"I am going all in",
     resave:false,
+    expires: new Date(Date.now() + (5000)),
     saveUninitialized : false
 }));
 
@@ -64,6 +65,9 @@ app.use(function(req,res,next){
 app.use("/campgrounds",campgroundRoutes);
 app.use("/campgrounds/:id/comments",commentRoutes);
 app.use("/",authRoutes);
+
+
+
 
 //set up the server
 app.listen(3000,function(){

@@ -15,7 +15,7 @@ router.get('/',function(req,res){
 
 // show the register form
 router.get('/register',function(req,res){
-    res.render('register');
+    res.render('register',{page : "register"});
 });
 
 // show the login page
@@ -53,7 +53,7 @@ router.post('/register',function(req,res){
 
 router.get('/login',function(req,res){
     
-    res.render('login');
+    res.render('login',{page : "login"});
 });
 
 
