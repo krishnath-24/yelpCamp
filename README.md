@@ -31,3 +31,4 @@ The app now has user associations with campgrounds as well as comments
 * styled the landing page, added the animation
 * styled the login and register page
 * made the navbar collapse for small screen size.
+* added the search campgroud feature using fuzzy search
