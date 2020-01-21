@@ -28,4 +28,6 @@ The app now has user associations with campgrounds as well as comments
 # started with version 10
 * refactored the middleware
 * added flash messages for the Error handling purpose
-* styled the landing page
+* styled the landing page, added the animation
+* styled the login and register page
+* made the navbar collapse for small screen size.
