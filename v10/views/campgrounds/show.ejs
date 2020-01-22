@@ -24,9 +24,9 @@
                     </p>
                     <% if(user &&  campground.author.id.equals(user._id)){ %>
                         
-                        <a class="btn btn-md btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a>
-                        <form id="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
-                            <button class="btn btn-md btn-inverse
+                        <a class="btn btn-sm btn-warning" href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a>
+                        <form  id="delete-form" action="/campgrounds/<%= campground._id %>?_method=DELETE" method="POST">
+                            <button class="btn btn-sm btn-inverse
                             btn-danger">Delete Campground</button>
                         </form>
 
@@ -35,7 +35,7 @@
             </div>
             <div class="well">
                 <div class="text-right">
-                    <a class="btn btn-success" href="/campgrounds/<%= campground._id%>/comments/new">Add a comment</a>
+                    <a class="btn btn-success btn-sm" href="/campgrounds/<%= campground._id%>/comments/new">Add a comment</a>
                 </div>
                 <hr>
                 <% campground.comments.forEach(function(comment){ %>
@@ -48,9 +48,9 @@
                             </p>
 
                             <% if(user && comment.author.id.equals(user._id)) { %>
-                            <a class="btn btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
-                            <form action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" id="delete-form" method="POST">
-                                <input type="submit" class="btn btn-md btn-danger"  value="Delete" >
+                            <a class="btn btn-xs btn-warning" href="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>/edit">Edit</a>
+                            <form style="display: inline;" action="/campgrounds/<%= campground._id %>/comments/<%= comment._id %>?_method=DELETE" id="delete-form" method="POST">
+                                <input type="submit" class="btn btn-xs btn-danger"  value="Delete" >
                             </form>
                             <% } %>
                         </div>
