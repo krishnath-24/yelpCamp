@@ -7,6 +7,7 @@ var Comment     = require('../models/comment'),
 
 var middlewares = {};
 
+
 middlewares.checkCampgroundOwnership = function(req,res,next){
 
     if(req.isAuthenticated()){
