@@ -7,15 +7,23 @@
          <h1 style="text-align: center">Register</h1>
         
         <form action="/register" method="POST">
+
             <div class="form-group">
                 <input class="form-control" type="text" name="username" placeholder="username" required>
             </div>
+
             <div class="form-group">
                 <input class="form-control" type="password" name="password" placeholder="password" required>
             </div>
+
+            <div class="form-group">
+                <input type="text" class="form-control" name="adminCode" placeholder="Admin Code">
+            </div>
+
             <div class="form-group">
                 <input class="form-control btn btn-primary" type="submit" value="Sign Up    ">
             </div>
+
         </form>
         <a href="/campgrounds" class="lead">Go back </a>
         </div>

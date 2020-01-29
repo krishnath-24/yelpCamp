@@ -1,6 +1,12 @@
 
 <%- include('../partials/header') %>
 
+<% if(user && user.isAdmin){ %>
+
+    <h1>Welcome Admin <%= user.username %></h1>
+    
+<% } %>
+
 <header class="jumbotron">
     
     <h1><span class="glyphicon glyphicon-tent"></span>Welcome to YelpCamp!</h1>

@@ -39,11 +39,11 @@ app.use(methodOverride("_method"));
 app.use(require('express-session')({
     secret:"I am going all in",
     resave:false,
-    expires: new Date(Date.now() + (5000)),
+    cookie: {maxAge:300000},
     saveUninitialized : false
 }));
 
-app.locals.moment = require('moment');
+app.locals.moment = require('moment');  
 app.use(passport.initialize());
 app.use(passport.session());
 

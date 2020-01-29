@@ -20,8 +20,12 @@ router.get('/register',function(req,res){
 
 // show the login page
 router.post('/register',function(req,res){
-    
-    User.register(new User({username : req.body.username}),req.body.password,function(err,user){
+
+    var newUser = new User({username : req.body.username});
+    if(req.body.adminCode == 'secretCodeAlpha'){
+        newUser.isAdmin = true;
+    }
+    User.register(newUser,req.body.password,function(err,user){
 
         if(err) {
             console.log('could not register :  '+err);
